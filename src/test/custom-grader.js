@@ -73,7 +73,7 @@ function writeOutputFiles(result, fileType) {
         xml: "./yaksha-test-cases.xml"
     };
 
-    let resultStatus = result.status === 'Pass' ? 'PASS' : 'FAIL';
+    let resultStatus = result.status === 'Passed' ? 'PASS' : 'FAIL';
     let output = `${result.methodName}=${resultStatus}\n`;
 
     let outputFilePath = outputFiles[fileType];
@@ -84,7 +84,7 @@ function writeOutputFiles(result, fileType) {
 
 // Function to check if variables are declared
 function checkVariablesDeclared(ast) {
-    let result = 'Pass';
+    let result = 'Passed';
     let feedback = [];
     let variablesDeclared = { name: false, age: false, city: false };
 
@@ -100,7 +100,7 @@ function checkVariablesDeclared(ast) {
 
     for (let varName in variablesDeclared) {
         if (!variablesDeclared[varName]) {
-            result = 'Fail';
+            result = 'Failed';
             feedback.push(`You must declare a variable called '${varName}'.`);
         }
     }
@@ -112,7 +112,7 @@ function checkVariablesDeclared(ast) {
         'VariableDeclarationAssignment',
         'functional',
         1,
-        result === 'Pass' ? 1 : 0,
+        result === 'Passed' ? 1 : 0,
         result,
         true,
         feedback.join(', ')
@@ -121,7 +121,7 @@ function checkVariablesDeclared(ast) {
 
 // Function to check if variables are declared
 function checkVariablesDeclared(ast) {
-    let result = 'Pass';
+    let result = 'Passed';
     let feedback = [];
     let variablesDeclared = { name: false, age: false, city: false };
 
@@ -137,7 +137,7 @@ function checkVariablesDeclared(ast) {
 
     for (let varName in variablesDeclared) {
         if (!variablesDeclared[varName]) {
-            result = 'Fail';
+            result = 'Failed';
             feedback.push(`You must declare a variable called '${varName}'.`);
         }
     }
@@ -149,7 +149,7 @@ function checkVariablesDeclared(ast) {
         'VariableDeclarationAssignment',
         'functional',
         1,
-        result === 'Pass' ? 1 : 0,
+        result === 'Passed' ? 1 : 0,
         result,
         true,
         feedback.join(', ')
@@ -158,7 +158,7 @@ function checkVariablesDeclared(ast) {
 
 // Function to check if 'name' and 'city' are assigned correctly as strings
 function checkStringAssignment(ast) {
-    let result = 'Pass';
+    let result = 'Passed';
     let feedback = [];
 
     ast.body.forEach((node) => {
@@ -168,11 +168,11 @@ function checkStringAssignment(ast) {
                 const initValue = declarator.init;
 
                 if (varName === 'name' && initValue.type !== 'Literal') {
-                    result = 'Fail';
+                    result = 'Failed';
                     feedback.push("The 'name' variable should be assigned a string value.");
                 }
                 if (varName === 'city' && initValue.type !== 'Literal') {
-                    result = 'Fail';
+                    result = 'Failed';
                     feedback.push("The 'city' variable should be assigned a string value.");
                 }
             });
@@ -186,7 +186,7 @@ function checkStringAssignment(ast) {
         'StringAssignment',
         'functional',
         1,
-        result === 'Pass' ? 1 : 0,
+        result === 'Passed' ? 1 : 0,
         result,
         true,
         feedback.join(', ')
@@ -195,7 +195,7 @@ function checkStringAssignment(ast) {
 
 // Function to check if 'age' is assigned correctly as a number
 function checkNumberAssignment(ast) {
-    let result = 'Pass';
+    let result = 'Passed';
     let feedback = [];
 
     ast.body.forEach((node) => {
@@ -205,7 +205,7 @@ function checkNumberAssignment(ast) {
                 const initValue = declarator.init;
 
                 if (varName === 'age' && initValue.type !== 'Literal') {
-                    result = 'Fail';
+                    result = 'Failed';
                     feedback.push("The 'age' variable should be assigned a numeric value.");
                 }
             });
@@ -219,7 +219,7 @@ function checkNumberAssignment(ast) {
         'NumberAssignment',
         'functional',
         1,
-        result === 'Pass' ? 1 : 0,
+        result === 'Passed' ? 1 : 0,
         result,
         true,
         feedback.join(', ')
@@ -228,7 +228,7 @@ function checkNumberAssignment(ast) {
 
 // Function to check if arithmetic operations are performed with 'age'
 function checkArithmeticOperations(ast) {
-    let result = 'Pass';
+    let result = 'Passed';
     let feedback = [];
     let ageDoubled = false;
     let ageIncremented = false;
@@ -251,11 +251,11 @@ function checkArithmeticOperations(ast) {
     });
 
     if (!ageDoubled) {
-        result = 'Fail';
+        result = 'Failed';
         feedback.push("The 'doubledAge' variable should use multiplication to double the age.");
     }
     if (!ageIncremented) {
-        result = 'Fail';
+        result = 'Failed';
         feedback.push("The 'ageNextYear' variable should use addition to increment the age.");
     }
 
@@ -266,7 +266,7 @@ function checkArithmeticOperations(ast) {
         'ArithmeticOperations',
         'functional',
         1,
-        result === 'Pass' ? 1 : 0,
+        result === 'Passed' ? 1 : 0,
         result,
         true,
         feedback.join(', ')
@@ -313,7 +313,7 @@ function gradeAssignment() {
         console.log(resultsToSend);
 
         // Log the test result in yellow for pass and red for fail using ANSI codes
-        if (testCaseResult.status === 'Pass') {
+        if (testCaseResult.status === 'Passed') {
             console.log(`\x1b[33m${testCaseResult.methodName}: Pass\x1b[0m`); // Yellow for pass
         } else {
             console.log(`\x1b[31m${testCaseResult.methodName}: Fail\x1b[0m`); // Red for fail
